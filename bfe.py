@@ -1,7 +1,8 @@
 import bcrypt
 
+hsh = "VABB7yO9xm7xWXROeASsmsgnY0o0sDMJev7zFHhwQS8mvM8V5xQQp"
+
 def validate_pwd(pwd):
-    hash = "VABB7yO9xm7xWXROeASsmsgnY0o0sDMJev7zFHhwQS8mvM8V5xQQp"
 
     passwords = [pwd]
     passwords.append(pwd.upper())
@@ -9,15 +10,9 @@ def validate_pwd(pwd):
 
     for password in passwords:
         for rounds in range (11, 31):
-            full_hash = (
-                b"$"
-                + b"2a"
-                + b"$"
-                + ("%2.2u" % rounds).encode("ascii")
-                + b"$"
-                + hash.encode("ascii")
-            )
-            b = password.encode('ascii')
+            full_hash = f"$2b${rounds}${hsh}"
+            full_hash = full_hash.encode('utf-8')
+            b = password.encode('utf-8')
 
             if bcrypt.checkpw(b, full_hash):
                 print("Match:")
@@ -28,10 +23,11 @@ def validate_pwd(pwd):
 
 if __name__ == "__main__":
 
-
     pwds = [
-        "god",
+        "newton",
+        "gravity"
     ]
+
     for pwd in pwds:
         is_match = validate_pwd(pwd)
         print(is_match)

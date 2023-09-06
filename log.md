@@ -58,36 +58,36 @@ Famous man that historically came with ???
 
 fractol:
 file.bfe:
-VAD2sO2qgbqPEXROeASsms gnY0o0sDMJev7zFHhw
+VAD2sO2qgbqPEXROeASsmsgnY0o0sDMJev7zFHhw
 QS8mvM8V5xQQpLc6cDCFXDWTiFzZ2H9skYkiJ/DpQtnM/uZ0
 40:48
 
 pipex:
 file.bfe:
-VACsSfsWN1cy33ROeASsms gnY0o0sDMJev7zFHhw
+VACsSfsWN1cy33ROeASsmsgnY0o0sDMJev7zFHhw
 QS8mvM8V5xQQpLc6cDCFXDWTiFzZ2H9skYkiJ/DpQtnM/uZ0
 40:48
 
 solong:
 file.bfe:
-VAA0DAYFf07ym3ROeASsms gnY0o0sDMJev7zFHhwQ
+VAA0DAYFf07ym3ROeASsmsgnY0o0sDMJev7zFHhwQ
 S8mvM8V5xQQpLc6cDCFXDWTiFzZ2H9skYkiJ/DpQtnM/uZ0
 41:47
 
 fdf:
 file.bfe:
-VADYjxBiOQSAWNqB652klC j13URaziELdHd+2Z38
+VADYjxBiOQSAWNqB652klCj13URaziELdHd+2Z38
 XCMD9dvO9tSyFob6Il3NBX9YXrgZEiQK7JZJ7w5t0N80wMl7
 40:48
 
 minitalk:
 file.bfe:
-VAAe8ElCrUAbXivz0ueiIp v/u/ia9PL50+HI+8/bgPKLESHlp
+VAAe8ElCrUAbXivz0ueiIpv/u/ia9PL50+HI+8/bgPKLESHlp
 tPLpu0PW9zWV/LwDVaOqCRCGu6Gopk1X0i6Kn7t
 49:39
 
 pushswap:
 file.bfe:
-VABB7yO9xm7xWXROeASsms gnY0o0sDMJev7zFHhwQS8mvM8V5xQQp
+VABB7yO9xm7xWXROeASsmsgnY0o0sDMJev7zFHhwQS8mvM8V5xQQp
 Lc6cDCFXDWTiFzZ2H9skYkiJ/DpQtnM/uZ0
 53:35
