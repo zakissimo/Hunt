@@ -46,9 +46,25 @@ checksum = "28d1c9c15093eb224f0baa400f38fcd713fc1391a6f1c389d886beef146d60a3"
 dependencies = [
  "base64",
  "blowfish",
- "getrandom",
+ "getrandom 0.2.10",
  "subtle",
  "zeroize",
+]
+
+[[package]]
+name = "bcrypt-only"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1d494613a1a526caf8b359040cc6a255e7ffb8aa1149a91968a6adcd58b5a8de"
+
+[[package]]
+name = "bcrypt-small"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4fca6056eb362bbf797949a9a9c690e69dbe83fd7611bfa4020489b8bd5853fd"
+dependencies = [
+ "bcrypt-only",
+ "getrandom 0.1.16",
 ]
 
 [[package]]
@@ -57,6 +73,7 @@ version = "0.1.0"
 dependencies = [
  "base64",
  "bcrypt",
+ "bcrypt-small",
  "crypto",
  "engine",
 ]
@@ -164,13 +181,24 @@ dependencies = [
 
 [[package]]
 name = "getrandom"
+version = "0.1.16"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8fc3cb4d91f53b50155bdcfd23f6a4c39ae1969c2ae85982b135750cccaf5fce"
+dependencies = [
+ "cfg-if",
+ "libc",
+ "wasi 0.9.0+wasi-snapshot-preview1",
+]
+
+[[package]]
+name = "getrandom"
 version = "0.2.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "be4136b2a15dd319360be1c07d9933517ccf0be8f16bf62a3bee4f0d618df427"
 dependencies = [
  "cfg-if",
  "libc",
- "wasi",
+ "wasi 0.11.0+wasi-snapshot-preview1",
 ]
 
 [[package]]
@@ -294,6 +322,12 @@ name = "version_check"
 version = "0.9.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "49874b5167b65d7193b8aba1567f5c7d93d001cafc34600cee003eda787e483f"
+
+[[package]]
+name = "wasi"
+version = "0.9.0+wasi-snapshot-preview1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cccddf32554fecc6acb585f82a32a72e28b48f8c4c1883ddfeeeaa96f7d8e519"
 
 [[package]]
 name = "wasi"
