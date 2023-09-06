@@ -8,14 +8,21 @@ def validate_pwd(pwd):
     passwords.append(pwd.capitalize())
 
     for password in passwords:
-        full_hash = "$2a$31$" + hash
-        full_hash = full_hash.encode('utf-8')
-        b = password.encode('utf-8')
+        for rounds in range (11, 31):
+            full_hash = (
+                b"$"
+                + b"2a"
+                + b"$"
+                + ("%2.2u" % rounds).encode("ascii")
+                + b"$"
+                + hash.encode("ascii")
+            )
+            b = password.encode('ascii')
 
-        if bcrypt.checkpw(b, full_hash):
-            print("Match:")
-            print(f"pwd: {password}")
-        print()
+            if bcrypt.checkpw(b, full_hash):
+                print("Match:")
+                print(f"pwd: {password}")
+            print()
 
     return False
 
