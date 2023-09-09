@@ -18,8 +18,8 @@ bin="./bcrypt-source-code/bcrypt"
 
 for bfe in "$files"/*.bfe; do
     while IFS= read -r pwd; do
-        echo "Trying: $pwd"
-        echo -n "$pwd" | "$bin" "$bfe"
-        [ $? -eq 0 ] && echo "<<<   We found a match: $pwd   >>>"
+        echo "Trying: ${pwd,,}"
+        echo -n "${pwd,,}" | "$bin" "$bfe"
+        [ $? -eq 0 ] && echo "<<<   We found a match: $pwd   >>>" && exit 0
     done <"$dict"
 done

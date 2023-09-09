@@ -13,17 +13,17 @@ Large cows generosity comes with charts and four blonde hats to defy upper gravi
 
 #First Circle
 ##Born2beroot
-<!-- Morse code -->
+<!-- morse code -->
 `
 Famous man that comes with the alternate version of ???
 `
 ##Printf
-<!-- brainfuck -->
+<!-- brainf*ck -->
 `
 Famous man that directly believed in ???
 `
 ##get_next_line
-<!-- leetspeach -->
+<!-- leetspeak -->
 ```
 Famous man that historically came with ???
 ```
