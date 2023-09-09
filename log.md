@@ -55,6 +55,7 @@ Famous man that historically came with ???
 
 
 <!-- $2a$[cost]$[22-character salt][31-character hash] -->
+echo "" | base64 -d > bfe_dir/.bfe
 
 fractol:
 file.bfe:
