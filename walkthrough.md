@@ -29,7 +29,7 @@ Famous man that historically came with ???
 ```
 
 #Second Circle
-<!-- The strings are base64 that should be decoded into a *.bfe encrypted binary. -->
+<!-- The strings are base64 that need to be decoded into a *.bfe encrypted binary. -->
 ```
 echo "Input_Here" | base64 -d > bfe_dir/file.bfe
 ```

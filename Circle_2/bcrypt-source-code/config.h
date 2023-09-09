@@ -14,7 +14,7 @@
 /* whether or not to compress files */
 #define COMPRESS 0
 /* send output to stdout */
-#define STANDARDOUT 1
+#define STANDARDOUT 0
 /* remove input files after processing */
 #define REMOVE 0
 /* how many times to overwrite input files before deleting */
