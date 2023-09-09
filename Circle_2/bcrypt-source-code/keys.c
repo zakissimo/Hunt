@@ -78,12 +78,12 @@ char *getkey(int type) {
 }
 
 void mutateKey(char **key, char **key2) {
-  uInt32 L, R, l, r;
+  int32_t L, R, l, r;
   BLOWFISH_CTX ctx;
   char *newkey, *newkey2;
   int i, j;
 
-  j = sizeof(uInt32);
+  j = sizeof(int32_t);
 
   Blowfish_Init(&ctx, *key, strlen(*key));
 

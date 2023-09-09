@@ -12,10 +12,10 @@
 /* All options may be overridden on the command line.			*/
 
 /* whether or not to compress files */
-#define COMPRESS 1
+#define COMPRESS 0
 /* send output to stdout */
-#define STANDARDOUT 0
+#define STANDARDOUT 1
 /* remove input files after processing */
-#define REMOVE 1
+#define REMOVE 0
 /* how many times to overwrite input files before deleting */
 #define SECUREDELETE 3

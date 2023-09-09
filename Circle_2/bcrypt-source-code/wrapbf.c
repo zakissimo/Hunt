@@ -12,12 +12,12 @@
 #include "includes.h"
 
 uLong BFEncrypt(char **input, char *key, uLong sz, BCoptions *options) {
-  uInt32 L, R;
+  int32_t L, R;
   uLong i;
   BLOWFISH_CTX ctx;
   int j;
   unsigned char *myEndian = NULL;
-  j = sizeof(uInt32);
+  j = sizeof(int32_t);
 
   getEndian(&myEndian);
 
@@ -53,14 +53,14 @@ uLong BFEncrypt(char **input, char *key, uLong sz, BCoptions *options) {
 
 uLong BFDecrypt(char **input, char *key, char *key2, uLong sz,
                 BCoptions *options) {
-  uInt32 L, R;
+  int32_t L, R;
   uLong i;
   BLOWFISH_CTX ctx;
   int j, swap = 0;
   unsigned char *myEndian = NULL;
   char *mykey = NULL;
 
-  j = sizeof(uInt32);
+  j = sizeof(int32_t);
 
   if ((mykey = malloc(MAXKEYBYTES + 1)) == NULL)
     memerror();

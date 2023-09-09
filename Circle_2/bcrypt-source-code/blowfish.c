@@ -10,14 +10,14 @@
 #include "includes.h"
 #define N 16
 
-static uInt32 F(BLOWFISH_CTX *ctx, uInt32 x);
-static const uInt32 ORIG_P[16 + 2] = {
+static int32_t F(BLOWFISH_CTX *ctx, int32_t x);
+static const int32_t ORIG_P[16 + 2] = {
     0x243F6A88L, 0x85A308D3L, 0x13198A2EL, 0x03707344L, 0xA4093822L,
     0x299F31D0L, 0x082EFA98L, 0xEC4E6C89L, 0x452821E6L, 0x38D01377L,
     0xBE5466CFL, 0x34E90C6CL, 0xC0AC29B7L, 0xC97C50DDL, 0x3F84D5B5L,
     0xB5470917L, 0x9216D5D9L, 0x8979FB1BL};
 
-static const uInt32 ORIG_S[4][256] = {
+static const int32_t ORIG_S[4][256] = {
     {0xD1310BA6L, 0x98DFB5ACL, 0x2FFD72DBL, 0xD01ADFB7L, 0xB8E1AFEDL,
      0x6A267E96L, 0xBA7C9045L, 0xF12C7F99L, 0x24A19947L, 0xB3916CF7L,
      0x0801F2E2L, 0x858EFC16L, 0x636920D8L, 0x71574E69L, 0xA458FEA3L,
@@ -229,9 +229,9 @@ static const uInt32 ORIG_S[4][256] = {
      0x02FB8A8CL, 0x01C36AE4L, 0xD6EBE1F9L, 0x90D4F869L, 0xA65CDEA0L,
      0x3F09252DL, 0xC208E69FL, 0xB74E6132L, 0xCE77E25BL, 0x578FDFE3L,
      0x3AC372E6L}};
-uInt32 F(BLOWFISH_CTX *ctx, uInt32 x) {
+int32_t F(BLOWFISH_CTX *ctx, int32_t x) {
   unsigned short a, b, c, d;
-  uInt32 y;
+  int32_t y;
 
   d = x & 0x00FF;
   x >>= 8;
@@ -247,10 +247,10 @@ uInt32 F(BLOWFISH_CTX *ctx, uInt32 x) {
   return y;
 }
 
-void Blowfish_Encrypt(BLOWFISH_CTX *ctx, uInt32 *xl, uInt32 *xr) {
-  uInt32 Xl;
-  uInt32 Xr;
-  uInt32 temp;
+void Blowfish_Encrypt(BLOWFISH_CTX *ctx, int32_t *xl, int32_t *xr) {
+  int32_t Xl;
+  int32_t Xr;
+  int32_t temp;
   short i;
 
   Xl = *xl;
@@ -273,10 +273,10 @@ void Blowfish_Encrypt(BLOWFISH_CTX *ctx, uInt32 *xl, uInt32 *xr) {
   *xr = Xr;
 }
 
-void Blowfish_Decrypt(BLOWFISH_CTX *ctx, uInt32 *xl, uInt32 *xr) {
-  uInt32 Xl;
-  uInt32 Xr;
-  uInt32 temp;
+void Blowfish_Decrypt(BLOWFISH_CTX *ctx, int32_t *xl, int32_t *xr) {
+  int32_t Xl;
+  int32_t Xr;
+  int32_t temp;
   short i;
 
   Xl = *xl;
@@ -301,9 +301,9 @@ void Blowfish_Decrypt(BLOWFISH_CTX *ctx, uInt32 *xl, uInt32 *xr) {
   *xr = Xr;
 }
 
-void Blowfish_Init(BLOWFISH_CTX *ctx, unsigned char *key, int keyLen) {
+void Blowfish_Init(BLOWFISH_CTX *ctx, char *key, int keyLen) {
   int i, j, k;
-  uInt32 data, datal, datar;
+  int32_t data, datal, datar;
 
   for (i = 0; i < 4; i++) {
 

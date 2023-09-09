@@ -1,3 +1,5 @@
+#include <zconf.h>
+
 typedef struct _BCoptions {
   unsigned char remove;
   unsigned char standardout;
