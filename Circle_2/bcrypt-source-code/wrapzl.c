@@ -7,21 +7,21 @@
  * ====================================================================
  */
 
+#include "includes.h"
 #include "defines.h"
 #include "functions.h"
-#include "includes.h"
 
 uLong docompress(char **input, uLong sz) {
   uLong newsz;
   char *output;
 
-  newsz = sz + (sz * .1) + 13;
+  newsz = sz + (sz *.1) + 13;
   if ((output = malloc(newsz + 1)) == NULL)
     memerror();
 
   memset(output, 0, newsz + 1);
 
-  compress((Bytef *)output, &newsz, (const Bytef *)*input, sz);
+  compress((Bytef *) output, &newsz, (const Bytef *) *input,  sz);
 
   free(*input);
   if ((*input = malloc(newsz)) == NULL)
@@ -31,7 +31,7 @@ uLong docompress(char **input, uLong sz) {
 
   free(output);
 
-  return (newsz);
+  return(newsz);
 }
 
 uLong douncompress(char **input, uLong sz, BCoptions options) {
@@ -42,8 +42,8 @@ uLong douncompress(char **input, uLong sz, BCoptions options) {
 
   memset(output, 0, options.origsize + 1);
 
-  uncompress((Bytef *)output, (uLong *)&options.origsize, (const Bytef *)*input,
-             sz);
+  uncompress((Bytef *) output, (uLong *) &options.origsize, 
+	(const Bytef *) *input, sz);
 
   free(*input);
   if ((*input = malloc(options.origsize)) == NULL)
@@ -53,5 +53,5 @@ uLong douncompress(char **input, uLong sz, BCoptions options) {
 
   free(output);
 
-  return (options.origsize);
+  return(options.origsize);
 }

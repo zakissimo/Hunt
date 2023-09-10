@@ -1,25 +1,25 @@
 /* ====================================================================
  * Copyright (c) 2002 Johnny Shelley.  All rights reserved.
  *
- * Bcrypt is licensed under the BSD software license. See the file
+ * Bcrypt is licensed under the BSD software license. See the file 
  * called 'LICENSE' that you should have received with this software
  * for details
  * ====================================================================
  */
 
+#include "includes.h"
 #include "defines.h"
 #include "functions.h"
-#include "includes.h"
 
-char *getkey(int type) {
+char * getkey(int type){
   char *key, *key2, overflow[2], *ch;
 
-#ifndef WIN32 /* Win32 doesn't have termios.h */
+#ifndef WIN32	/* Win32 doesn't have termios.h */
   struct termios term, termsave;
 
   tcgetattr(fileno(stdin), &termsave);
   term = termsave;
-  term.c_lflag &= ~(ECHO | ECHOE | ECHOK | ECHONL);
+  term.c_lflag &= ~ (ECHO | ECHOE | ECHOK | ECHONL);
   tcsetattr(fileno(stdin), TCSANOW, &term);
 #endif
 
@@ -32,14 +32,14 @@ char *getkey(int type) {
   fgets(key, MAXKEYBYTES + 1, stdin);
 
   /* blowfish requires 32 bits, I want 64. deal w/ it	*/
-  while (strlen(key) < 9 && type == ENCRYPT) { /* \n is still tacked on */
+  while (strlen(key) < 9 && type == ENCRYPT) {	/* \n is still tacked on */
     fprintf(stderr, "Key must be at least 8 characters\n");
     memset(key, 0, MAXKEYBYTES + 2);
     fprintf(stderr, "Encryption key:");
     fgets(key, MAXKEYBYTES + 1, stdin);
   }
 
-  if (memchr(key, (char)10, MAXKEYBYTES + 1) == NULL) {
+  if (memchr(key, (char) 10, MAXKEYBYTES + 1) == NULL) {
     while (fread(overflow, 1, 1, stdin) > 0) {
       if (memcmp(overflow, "\n", 1) == 0)
         break;
@@ -53,10 +53,10 @@ char *getkey(int type) {
     memset(key2, 0, MAXKEYBYTES + 2);
     fprintf(stderr, "\nAgain:");
     fgets(key2, MAXKEYBYTES + 1, stdin);
-
+  
     if (strcmp(key, key2)) {
       fprintf(stderr, "\nKeys don't match!\n");
-#ifndef WIN32 /* Win32 doesn't have termios.h */
+#ifndef WIN32	/* Win32 doesn't have termios.h */
       tcsetattr(fileno(stdin), TCSANOW, &termsave);
 #endif
       exit(1);
@@ -65,30 +65,30 @@ char *getkey(int type) {
     free(key2);
   }
 
-  if ((ch = memchr(key, (char)10, strlen(key))) != NULL)
+  if ((ch = memchr(key, (char) 10, strlen(key))) != NULL)
     memset(ch, 0, 1);
 
-#ifndef WIN32 /* Win32 doesn't have termios.h */
+#ifndef WIN32	/* Win32 doesn't have termios.h */
   tcsetattr(fileno(stdin), TCSANOW, &termsave);
 #endif
 
   fprintf(stderr, "\n");
 
-  return (key);
+  return(key);
 }
 
 void mutateKey(char **key, char **key2) {
-  int32_t L, R, l, r;
+  uInt32 L, R, l, r;
   BLOWFISH_CTX ctx;
   char *newkey, *newkey2;
   int i, j;
 
-  j = sizeof(int32_t);
+  j = sizeof(uInt32);
 
   Blowfish_Init(&ctx, *key, strlen(*key));
 
   memcpy(&L, *key, j);
-  memcpy(&R, *key + j, j);
+  memcpy(&R, *key+j, j);
   memset(*key, 0, MAXKEYBYTES + 1);
 
   l = L;
@@ -105,13 +105,13 @@ void mutateKey(char **key, char **key2) {
   memset(newkey, 0, MAXKEYBYTES + 1);
   memset(newkey2, 0, MAXKEYBYTES + 1);
 
-  for (i = 0; i < MAXKEYBYTES; i += (j * 2)) {
+  for (i=0; i < MAXKEYBYTES; i+=(j*2)) {
     Blowfish_Encrypt(&ctx, &L, &R);
-    memcpy(newkey + i, &L, j);
-    memcpy(newkey + i + j, &R, j);
+    memcpy(newkey+i, &L, j);
+    memcpy(newkey+i+j, &R, j);
   }
 
-  for (i = 0; i < MAXKEYBYTES; i += (j * 2)) {
+  for (i=0; i < MAXKEYBYTES; i+=(j*2)) {
     l = swapEndian(l);
     r = swapEndian(r);
 
@@ -120,8 +120,8 @@ void mutateKey(char **key, char **key2) {
     l = swapEndian(l);
     r = swapEndian(r);
 
-    memcpy(newkey2 + i, &l, j);
-    memcpy(newkey2 + i + j, &r, j);
+    memcpy(newkey2+i, &l, j);
+    memcpy(newkey2+i+j, &r, j);
   }
 
   memcpy(*key, newkey, MAXKEYBYTES);

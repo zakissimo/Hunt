@@ -7,18 +7,18 @@
  * ====================================================================
  */
 
+#include "includes.h"
 #include "defines.h"
 #include "functions.h"
-#include "includes.h"
 
 int getremain(uLong sz, int dv) {
   int r;
-
+   
   r = sz / dv;
   r++;
   r = r * dv;
   r = r - sz;
-  return (r);
+  return(r);
 }
 
 uLong padInput(char **input, uLong sz) {
@@ -31,15 +31,15 @@ uLong padInput(char **input, uLong sz) {
   else
     r = j - sz;
 
-  if (r < j) {
+  if ( r < j) {
     if ((*input = realloc(*input, sz + r + 1)) == NULL)
       memerror();
 
-    memset(*input + sz, 0, r + 1);
-    sz += r;
+    memset(*input+sz, 0, r + 1);
+    sz+=r;
   }
 
-  return (sz);
+  return(sz);
 }
 
 uLong attachKey(char **input, char *key, uLong sz) {
@@ -48,14 +48,14 @@ uLong attachKey(char **input, char *key, uLong sz) {
   if ((*input = realloc(*input, sz + MAXKEYBYTES + 3)) == NULL)
     memerror();
 
-  memcpy(*input + sz, key, MAXKEYBYTES);
+  memcpy(*input+sz, key, MAXKEYBYTES);
   sz += MAXKEYBYTES;
 
-  return (sz);
+  return(sz);
 }
 
-uLong readfile(char *infile, char **input, int type, char *key,
-               struct stat statbuf) {
+uLong readfile(char *infile, char **input, int type, char *key, 
+	struct stat statbuf) {
   FILE *fd;
   int readsize;
   uLong sz = 0;
@@ -65,25 +65,25 @@ uLong readfile(char *infile, char **input, int type, char *key,
   fd = fopen(infile, "rb");
   if (!fd) {
     fprintf(stderr, "Unable to open file %s\n", infile);
-    return (-1);
+    return(-1);
   }
 
-  if ((*input = malloc(readsize + sz + 1)) == NULL)
+  if ((*input = malloc(readsize + sz + 1)) == NULL) 
     memerror();
 
-  memset(*input + sz, 0, readsize);
-  sz += fread(*input + sz, 1, readsize - 1, fd);
+  memset(*input+sz, 0, readsize);
+  sz += fread(*input+sz, 1, readsize - 1, fd);
 
   fclose(fd);
 
-  return (sz);
+  return(sz);
 }
 
-uLong writefile(char *outfile, char *output, uLong sz, BCoptions options,
-                struct stat statbuf) {
+uLong writefile(char *outfile, char *output, uLong sz, 
+	BCoptions options, struct stat statbuf) {
   FILE *fd;
 
-  if (options.standardout == 1)
+  if (options.standardout == 1) 
     fd = stdout;
   else
     fd = fopen(outfile, "wb");
@@ -103,7 +103,7 @@ uLong writefile(char *outfile, char *output, uLong sz, BCoptions options,
     chmod(outfile, statbuf.st_mode);
   }
 
-  return (0);
+  return(0);
 }
 
 int deletefile(char *file, BCoptions options, char *key, struct stat statbuf) {
@@ -120,15 +120,16 @@ int deletefile(char *file, BCoptions options, char *key, struct stat statbuf) {
     if ((state = malloc(257)) == NULL)
       memerror();
 
-    initstate((unsigned long)key, state, 256);
+    initstate((unsigned long) key, state, 256);
     if ((garbage = malloc(lsize + 1)) == NULL)
       memerror();
 
     fd = fopen(file, "r+b");
 
+
     for (i = options.securedelete; i > 0; i--) {
       fseek(fd, 0, SEEK_SET);
-
+ 
       for (j = 0; j < k; j += lsize) {
         g = random();
         memcpy(garbage, &g, lsize);
@@ -141,7 +142,7 @@ int deletefile(char *file, BCoptions options, char *key, struct stat statbuf) {
 
   if (unlink(file)) {
     fprintf(stderr, "Error deleting file %s\n", file);
-    return (1);
+    return(1);
   }
-  return (0);
+  return(0);
 }

@@ -6,23 +6,29 @@ if [ $# -ne 1 ]; then
 fi
 
 dict="$1"
-files="./files"
+files="$(find "$(realpath ./files)" -type f -name '*.bfe')"
 bin="./bcrypt-source-code/bcrypt"
 
 # Check if the file exists
 [ ! -f "$dict" ] && echo "Dictionary not found: $dict" >&2 && exit 1
-# Check if the directory exists
-[ ! -d "$files" ] && echo "Directory not found: $files" >&2 && exit 1
 # Check if the binary exists
 [ ! -f "$bin" ] && echo "Binary not found: $bin" >&2 && exit 1
 
-for bfe in "$files"/*.bfe; do
+function brute() {
+
+    bfe="$1"
     while IFS= read -r pwd; do
-        echo "Trying: ${pwd,,}"
-        echo -n "${pwd,,}" | "$bin" "$bfe"
-        [ $? -eq 0 ] && echo "<<<   We found a match: $pwd   >>>" && exit 0
-        echo "Trying: ${pwd^^}"
-        echo -n "${pwd^^}" | "$bin" "$bfe"
-        [ $? -eq 0 ] && echo "<<<   We found a match: $pwd   >>>" && exit 0
+        echo -n "$pwd" | "$bin" "$bfe" >/dev/null 2>&1
+        [ $? -eq 0 ] && echo "<<<   We found a match: $pwd   >>>    file: $bfe" && exit 0
+        echo -n "${pwd,,}" | "$bin" "$bfe" >/dev/null 2>&1
+        [ $? -eq 0 ] && echo "<<<   We found a match: ${pwd,,}   >>>    file: $bfe" && exit 0
+        echo -n "${pwd^^}" | "$bin" "$bfe" >/dev/null 2>&1
+        [ $? -eq 0 ] && echo "<<<   We found a match: ${pwd^^}   >>>    file: $bfe" && exit 0
     done <"$dict"
+}
+
+for bfe in $files; do
+    brute "$bfe"
 done
+
+echo "No match found :'("
