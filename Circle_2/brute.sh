@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 if [ $# -ne 1 ]; then
-    echo "Usage: $0 <file>"
+    echo "Usage: $0 <dictionary>"
     exit 1
 fi
 
@@ -20,6 +20,9 @@ for bfe in "$files"/*.bfe; do
     while IFS= read -r pwd; do
         echo "Trying: ${pwd,,}"
         echo -n "${pwd,,}" | "$bin" "$bfe"
+        [ $? -eq 0 ] && echo "<<<   We found a match: $pwd   >>>" && exit 0
+        echo "Trying: ${pwd^^}"
+        echo -n "${pwd^^}" | "$bin" "$bfe"
         [ $? -eq 0 ] && echo "<<<   We found a match: $pwd   >>>" && exit 0
     done <"$dict"
 done
